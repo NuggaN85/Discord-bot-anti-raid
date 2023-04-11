@@ -6,8 +6,8 @@ const client = new Client({
     intents: [Intents.FLAGS.GUILDS],
 });
 
-const token = 'YOUR_BOT_TOKEN';
-const guildId = 'YOUR_GUILD_ID';
+const token = 'VOTRE_TOKEN_BOT';
+const guildId = 'VOTRE_ID_GUILD';
 
 client.on('ready', async () => {
     console.log(`Logged in as ${client.user.tag}!`);
@@ -15,11 +15,11 @@ client.on('ready', async () => {
     // Register slash commands
     const commands = [{
         name: 'anti-raid',
-        description: 'Enable or disable anti-raid mode',
+        description: 'Activer ou désactiver le mode anti-raid',
         options: [{
             name: 'enable',
             type: 'BOOLEAN',
-            description: 'Enable or disable anti-raid mode',
+            description: 'Activer ou désactiver le mode anti-raid',
             required: true
         }]
     }];
@@ -54,14 +54,14 @@ client.on('interactionCreate', async (interaction) => {
                 color: 'RED',
                 hoist: true,
                 permissions: [],
-                reason: 'Anti-Raid mode enabled',
+                reason: 'Mode anti-raids activé',
             });
 
             guild.members.cache.forEach(member => {
                 member.roles.add(role);
             });
 
-            await interaction.reply('Anti-Raid mode enabled!');
+            await interaction.reply('Mode anti-raids activé !');
         } else {
             // Remove anti-raid role from all members
             const guild = client.guilds.cache.get(guildId);
@@ -72,10 +72,10 @@ client.on('interactionCreate', async (interaction) => {
                     member.roles.remove(role);
                 });
 
-                await role.delete('Anti-Raid mode disabled');
-                await interaction.reply('Anti-Raid mode disabled!');
+                await role.delete('Mode anti-raids désactivé');
+                await interaction.reply('Mode anti-raids désactivé !');
             } else {
-                await interaction.reply('Anti-Raid mode is not enabled.');
+                await interaction.reply('Le mode Anti-Raid n\'est pas activé.');
             }
         }
     }
